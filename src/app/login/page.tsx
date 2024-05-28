@@ -6,6 +6,7 @@ import { RiSendPlane2Line } from "react-icons/ri";
 import { GiCrossedSwords } from "react-icons/gi";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { googleLogin } from './action';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -16,6 +17,10 @@ export default function Login() {
         event.preventDefault()
         console.log(email);
         console.log(password);
+    }
+
+    async function google(){
+        await googleLogin()
     }
 
     return (
@@ -54,6 +59,19 @@ export default function Login() {
                                         </div>
                                         <button type="submit" className="flex focus:outline-none hover:scale-105  justify-center items-center h-10 bg-[#8ebebd] mt-4 transition duration-150 hover:bg-[#a5dddc] w-full rounded-sm py-1 font-medium text-xl">Send <RiSendPlane2Line className="flex ml-2" size={20} /></button>
                                     </form> 
+                                    <div className='w-full space-x-2  h-2 mb-4 mt-4  flex justify-center items-center'>
+                                                <div className='bg-white bg-opacity-20 h-0.5 rounded-full w-full'></div>
+                                                <div className='text-[#8ebebd] font-extralight whitespace-nowrap text-xs'>Or continue with</div>
+                                                <div className='bg-white bg-opacity-20 h-0.5 w-full rounded-full'></div>
+                                            </div>
+                                            <button onClick={()=>{google()}} type="button" className='mx-auto w-full'> <div className='flex justify-center items-center'>
+                                                <div className='flex justify-center items-center space-x-4 bg-white bg-opacity-15 w-fit p-3 rounded-lg'>
+                                                   <img src="google-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img> 
+                                                    {/* <img src="facebook-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img>
+                                                    <img src="apple-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img> */}
+                                                </div>
+                                            </div> 
+                                            </button>
                                 </div>
                             </div>
                         </div>

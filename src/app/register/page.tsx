@@ -41,14 +41,10 @@ export default function Register() {
                                         </span>
                                         <div className="bg-black mt-4 bg-opacity-85 shadow-lg w-full p-4 rounded-lg">
                                             <form onSubmit={(event) => handleSubmit(event)} className="flex-col select-none">
-                                                <label className="text-white-700 text-sm font-semibold flex ml-0.5 mt-2">Full Name:</label>
+                                                <label className="text-white-700 text-sm font-semibold flex ml-0.5 mt-2">User Name:</label>
                                                 <input onChange={(e) => setName(e.target.value)} className="bg-gray-400 bg-opacity-5 flex rounded-lg cursor-pointer hover:bg-[#8ebebd] hover:bg-opacity-20 w-full  focus:bg-opacity-20 focus:bg-[#8ebebd]  focus:outline-none focus:border-t-[#8ebebd] focus:border-l-[#8ebebd]  focus:border-r-[#8ebebd] border-2 border-t-transparent border-r-transparent border-l-transparent  transition duration-300 ease-in-out  border-[#8ebebd] text-white px-1 py-2 text-sm" type="text" />
                                                 <label className="text-white-700 text-sm font-semibold flex ml-0.5 mt-2">Email:</label>
                                                 <input onChange={(e) => setEmail(e.target.value)} className="bg-gray-400 bg-opacity-5 flex rounded-lg cursor-pointer hover:bg-[#8ebebd] hover:bg-opacity-20 w-full  focus:bg-opacity-20 focus:bg-[#8ebebd]  focus:outline-none focus:border-t-[#8ebebd] focus:border-l-[#8ebebd]  focus:border-r-[#8ebebd] border-2 border-t-transparent border-r-transparent border-l-transparent  transition duration-300 ease-in-out  border-[#8ebebd] text-white px-1 py-2 text-sm" type="email" />
-                                                <label className="text-white-700 text-sm font-semibold flex ml-0.5 mt-2">Password:</label>
-                                                <input onChange={(e) => setPassword(e.target.value)} className="bg-gray-400 bg-opacity-5 flex rounded-lg cursor-pointer hover:bg-[#8ebebd] hover:bg-opacity-20 w-full  focus:bg-opacity-20 focus:bg-[#8ebebd]  focus:outline-none focus:border-t-[#8ebebd] focus:border-l-[#8ebebd]  focus:border-r-[#8ebebd] border-2 border-t-transparent border-r-transparent border-l-transparent  transition duration-300 ease-in-out  border-[#8ebebd] text-white px-1 py-2 text-sm" type="password" />
-                                                <label className="text-white-700 text-sm font-semibold ml-0.5 mt-2 flex">Confirm Password:</label>
-                                                <input onChange={(e) => setConfirmPassword(e.target.value)} className="bg-gray-400 bg-opacity-5 flex rounded-lg cursor-pointer hover:bg-[#8ebebd] hover:bg-opacity-20 w-full  focus:bg-opacity-20 focus:bg-[#8ebebd]  focus:outline-none focus:border-t-[#8ebebd] focus:border-l-[#8ebebd]  focus:border-r-[#8ebebd] border-2 border-t-transparent border-r-transparent border-l-transparent  transition duration-300 ease-in-out  border-[#8ebebd] text-white px-1 py-2 text-sm" type="password" />
                                                 <div className="flex text-xs justify-center items-center mt-4">
                                                     <div className="flex">
                                                         <input type="checkbox" className=" accent-[#a5dddc] focus:outline-none border-2 border-gray-300 rounded-md " />
@@ -58,7 +54,18 @@ export default function Register() {
                                                 </div>
                                                 <button type="submit" className="flex focus:outline-none hover:scale-105  justify-center items-center h-10 bg-[#8ebebd] mt-4 transition duration-150 hover:bg-[#a5dddc] w-full rounded-sm py-1 font-medium text-xl">Send <RiSendPlane2Line className="flex ml-2" size={20} /></button>
                                             </form>
-                                           
+                                            <div className='w-full space-x-2  h-2 mb-4 mt-4  flex justify-center items-center'>
+                                                <div className='bg-white bg-opacity-20 h-0.5 rounded-full w-full'></div>
+                                                <div className='text-[#8ebebd] font-extralight whitespace-nowrap text-xs'>Or continue with</div>
+                                                <div className='bg-white bg-opacity-20 h-0.5 w-full rounded-full'></div>
+                                            </div>
+                                            <div className='flex justify-center items-center'>
+                                                <div className='flex justify-center items-center space-x-4 bg-white bg-opacity-15 w-fit p-3 rounded-lg'>
+                                                    <img src="google-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img>
+                                                    <img src="facebook-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img>
+                                                    <img src="apple-icon.svg" className='w-8 h-8 cursor-pointer hover:-translate-y-1 hover:scale-125 duration-150 transition' alt="Descripción de la imagen" ></img>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
