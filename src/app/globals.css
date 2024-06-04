@@ -31,3 +31,11 @@ body {
     text-wrap: balance;
   }
 }
+/* Clase personalizada para el clip-path del techo */
+.clip-path-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
