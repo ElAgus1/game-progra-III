@@ -41,7 +41,7 @@ const Page: React.FC = () => {
     <div className="flex justify-center items-center min-h-screen bg-[url('/agua.png')] bg-cover">
       <div className="grid grid-cols-5 gap-2">{squares}</div>
       <Sidebar onSelectOption={handleSelectOption} />
-      <div className="fixed top-0 right-0 m-4 text-white">Points: {points}</div>
+      <div className="fixed top-0 right-0 m-4 text-black">Points: {points}♦</div>
     </div>
   );
 };

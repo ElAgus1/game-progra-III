@@ -37,7 +37,7 @@ const Sidebar: React.FC<{ onSelectOption: (option: string) => void }> = ({
                     isOpen ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  House
+                  House -10♦
                 </p>
               </button>
             </li>
@@ -52,7 +52,7 @@ const Sidebar: React.FC<{ onSelectOption: (option: string) => void }> = ({
                     isOpen ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  Worker
+                  Worker -30♦
                 </p>
               </button>
             </li>

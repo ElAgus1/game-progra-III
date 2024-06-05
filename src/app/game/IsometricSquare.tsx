@@ -19,10 +19,10 @@ const IsometricSquare: React.FC<IsometricSquareProps> = ({
 
   const handleClick = () => {
     if (selectedOption === "House" && canAddItem(30)) {
-      adjustPoints(-30);
+      adjustPoints(-10);
       setDisplayOption("House");
     } else if (selectedOption === "Worker" && canAddItem(10)) {
-      adjustPoints(-10);
+      adjustPoints(-30);
       setDisplayOption("Worker");
       const interval = setInterval(() => {
         adjustPoints(1);

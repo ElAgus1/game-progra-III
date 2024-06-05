@@ -19,11 +19,11 @@ model User {
   admin         Boolean?
   accounts      Account[]
   sessions      Session[]
+  user1         Chat[]    @relation("user1")
+  user2         Chat[]    @relation("user2")
 
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-
-
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
 
   @@map(name: "users")
 }
@@ -64,11 +64,31 @@ model Session {
 }
 
 model VerificationToken {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
   @@map(name: "verification_tokens")
+}
+
+model Chat {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId1 String @db.ObjectId
+  userId2 String @db.ObjectId
+  user1   User   @relation("user1", fields: [userId1], references: [id], onDelete: Cascade)
+  user2   User   @relation("user2", fields: [userId2], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  @@map(name: "chats")
+}
+
+model Message {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  chatId String @db.ObjectId
+  value  String
+
+  message Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
