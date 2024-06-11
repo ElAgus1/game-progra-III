@@ -5,12 +5,20 @@ interface IsometricSquareProps {
   selectedOption: string | null;
   adjustPoints: (amount: number) => void;
   canAddItem: (cost: number) => boolean;
+  setMap: (map: [any][any]) => void;
+  locRow: any; 
+  locCol: any;
+  currentMap: [any][any]
 }
 
 const IsometricSquare: React.FC<IsometricSquareProps> = ({
   selectedOption,
   adjustPoints,
   canAddItem,
+  setMap,
+  locRow,
+  locCol,
+  currentMap,
 }) => {
   const [displayOption, setDisplayOption] = useState<string | null>(null);
   const [workerInterval, setWorkerInterval] = useState<NodeJS.Timeout | null>(
@@ -19,9 +27,14 @@ const IsometricSquare: React.FC<IsometricSquareProps> = ({
 
   const handleClick = () => {
     if (selectedOption === "House" && canAddItem(30)) {
+      const updatemap = [...currentMap];
+      updatemap[locRow][locCol] = 1;
+      setMap(updatemap);      
       adjustPoints(-10);
       setDisplayOption("House");
     } else if (selectedOption === "Worker" && canAddItem(10)) {
+      const updatemap = [...currentMap];
+      updatemap[locRow][locCol] = 2;
       adjustPoints(-30);
       setDisplayOption("Worker");
       const interval = setInterval(() => {
@@ -33,9 +46,9 @@ const IsometricSquare: React.FC<IsometricSquareProps> = ({
 
   const handleDelete = () => {
     if (displayOption === "House") {
-      adjustPoints(30);
-    } else if (displayOption === "Worker") {
       adjustPoints(10);
+    } else if (displayOption === "Worker") {
+      adjustPoints(30);
       if (workerInterval) {
         clearInterval(workerInterval);
         setWorkerInterval(null);

@@ -6,6 +6,9 @@ import IsometricSquare from "./IsometricSquare";
 const Page: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [points, setPoints] = useState<number>(100); // Iniciar con 100 puntos por ejemplo
+  const array = Array.from({ length: 5 }, () => Array(5).fill(0));
+  const [map, setMap] = useState(array);
+  console.log(map);
 
   const handleSelectOption = (option: string) => {
     setSelectedOption(option);
@@ -32,6 +35,10 @@ const Page: React.FC = () => {
           selectedOption={selectedOption}
           adjustPoints={adjustPoints}
           canAddItem={canAddItem}
+          setMap={setMap}
+          locRow={i}
+          locCol={j}
+          currentMap={map}
         />
       );
     }
