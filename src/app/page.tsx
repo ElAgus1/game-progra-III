@@ -14,6 +14,11 @@ export default function Home() {
               Login
             </button>
           </Link>
+          <Link href="/game" prefetch={true}>
+            <button className="bg-white text-xl w-28 text-black hover:bg-rose-400 transition duration-300 rounded-l-md border-r-2 border-rose-600 p-2 bg-opacity-80">
+              Game
+            </button>
+          </Link>
           <Link href="/register" prefetch={true}>
             <button className="bg-white text-xl w-28 text-black border-l-2 hover:bg-rose-400 transition duration-300 border-rose-600 rounded-r-md p-2 bg-opacity-80">
               Register

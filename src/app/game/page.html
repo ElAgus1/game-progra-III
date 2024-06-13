@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            font-family: monospace;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            justify-content: flex;
+        }
+        .fondo-verde {
+            background-color: #4CAF50;
+            border: 50px solid transparent; /* Usar transparente para mostrar la imagen del borde */
+            box-sizing: border-box; /* Asegura que el borde esté dentro del 100% */
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            position: relative; /* Para posicionar elementos hijos */
+            border-image: url('agua.png') 50 round; /* Imagen de borde */
+        }
+
+        .cuadro {
+            border: 1px solid #ddd; /* Bordes ligeros para los cuadros */
+            transition: background-color 0.3s; /* Transición suave */
+            position: relative; /* Para posicionar la imagen */
+            overflow: hidden; /* Para que la imagen no sobresalga del cuadro */
+            background-image: url('pasto.png'); /* Ruta a tu imagen de pasto */
+            background-size: 80%; /* Asegura que la imagen cubra todo el cuadro */
+            background-position: center; /* Centra la imagen */
+        }
+
+        .cuadro:hover {
+            background: green; /* Cambia a amarillo cuando el mouse está sobre el cuadro */
+        }
+
+        .cuadro.gris {
+            background-color: grey !important; /* Fondo rojo cuando se agrega la casa */
+        }
+
+        .cuadro.casa img {
+            display: block; /* Mostrar la imagen cuando el cuadro tiene la clase 'casa' */
+        }
+
+        .cuadro.mesa img {
+            display: block; /* Mostrar la imagen cuando el cuadro tiene la clase 'mesa' */
+        }
+
+        .cuadro img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
+            /*display: none; /* Ocultar la imagen por defecto */
+        }
+
+        .boton-agregar {
+            position: absolute;
+            bottom: -40px;
+            left: 10px;
+            padding: 10px 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .boton-agregar-mesa {
+            position: absolute;
+            bottom: -40px;
+            left: 150px;
+            padding: 10px 15px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .contador-dinero {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 18px;
+            color: white;
+        }
+
+        .contador-individual {
+            position:absolute;
+            top: 10px;
+            left: 0;
+            background: (0, 0, 0, 0.5);
+            color: white;
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="fondo-verde">
+        <div class="contador-dinero">Recursos: <span id="dinero-disponible">100</span>♦</div>
+        <button class="boton-agregar">Agregar Casa (10♦)</button>
+        <button class="boton-agregar-mesa">Agregar Recolector (30♦)</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.fondo-verde');
+            const botonAgregarCasa = document.querySelector('.boton-agregar');
+            const botonAgregarMesa = document.querySelector('.boton-agregar-mesa');
+            const dineroDisponible = document.getElementById('dinero-disponible');
+            let dinero = 100; // Dinero inicial
+            let modoActual = ''; // Variable para controlar el modo actual (casa o mesa)
+
+            function actualizarEventos() {
+                container.querySelectorAll('.cuadro').forEach(function(cuadro) {
+                    cuadro.removeEventListener('click', handleCuadroClick);
+                    cuadro.removeEventListener('click', handleMesaClick);
+                    if (modoActual === 'casa') {
+                        cuadro.addEventListener('click', handleCuadroClick);
+                    } else if (modoActual === 'mesa') {
+                        cuadro.addEventListener('click', handleMesaClick);
+                    }
+                });
+            }
+
+            botonAgregarCasa.addEventListener('click', function() {
+                modoActual = 'casa';
+                actualizarEventos();
+            });
+
+            botonAgregarMesa.addEventListener('click', function() {
+                modoActual = 'mesa';
+                actualizarEventos();
+            });
+
+            function handleCuadroClick() {
+                if (modoActual !== 'casa') return; // Solo permitir en modo casa
+                if (this.classList.contains('mesa')) return; // No permitir agregar casa sobre una mesa
+
+                if (this.classList.contains('casa')) {
+                    this.classList.remove('casa', 'rojo');
+                    this.innerHTML = ''; // Limpiar el contenido actual
+                    this.style.backgroundImage = 'url(pasto.png)'; // Restaurar la imagen de fondo de pasto
+                    dinero += 10; // Sumar dinero al remover una casa
+                } else if (dinero >= 10) {
+                    this.classList.add('casa'); // Agregar clase 'casa' y 'rojo'
+                    const img = document.createElement('img');
+                    img.src = 'house.png'; // Ruta a tu imagen de casa
+                    //this.innerHTML = ''; // Limpiar contenido actual
+                    this.style.backgroundImage = 'none'; // Quitar la imagen de fondo de pasto
+                    this.appendChild(img); // Añadir la imagen de la casa
+                    dinero -= 10; // Restar dinero al agregar una casa
+                }
+                dineroDisponible.textContent = dinero;
+            }
+
+            function handleMesaClick() {
+                if (modoActual !== 'mesa') return; // Solo permitir en modo mesa
+                if (this.classList.contains('casa')) return; // No permitir agregar mesa sobre una casa
+
+                if (this.classList.contains('mesa')) {
+                    this.classList.remove('mesa', 'gris');
+                    this.innerHTML = ''; // Limpiar el contenido actual
+                    this.style.backgroundImage = 'url(pasto.png)'; // Restaurar la imagen de fondo de pasto
+                    dinero += 30; // Sumar dinero al remover una mesa
+                    dineroDisponible.textContent = dinero;
+                } else if (dinero >= 30) {
+                    this.classList.add('mesa', 'gris'); // Agregar clase 'mesa'
+                    const img = document.createElement('img');
+                    img.src = 'work.png'; // Ruta a tu imagen de mesa de trabajo
+                    this.innerHTML = ''; // Limpiar contenido actual
+                    this.style.backgroundImage = 'none'; // Quitar la imagen de fondo de pasto
+                    this.appendChild(img); // Añadir la imagen de la mesa de trabajo
+                    dinero -= 30; // Restar dinero al agregar una mesa
+                    dineroDisponible.textContent = dinero;
+
+                    // Crear contador de tiempo individual
+                    const contador = document.createElement('div');
+                    contador.classList.add('contador-individual');
+                    this.appendChild(contador);
+
+                    // Añadir $20 después de 10 minutos (600000 milisegundos)
+                    let tiempoRestante = 600; // 10 minutos en segundos
+                    const timer = setInterval(() => {
+                        if (tiempoRestante > 0) {
+                            tiempoRestante--;
+                            contador.textContent = `${Math.floor(tiempoRestante / 60)}:${tiempoRestante % 60 < 10 ? '0' : ''}${tiempoRestante % 60}`;
+                        } else {
+                            clearInterval(timer);
+                            dinero += 20;
+                            dineroDisponible.textContent = dinero;
+                            contador.textContent = 'Ganancia!';
+                        }
+                    }, 1000);
+                }
+            }
+
+            // Crear los cuadros inicialmente (como en tu código original)
+            for (let i = 0; i < 400; i++) {
+                const div = document.createElement('div');
+                div.classList.add('cuadro');
+                container.appendChild(div);
+            }
+        });
+    </script>
+</body>
+</html>
