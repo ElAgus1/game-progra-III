@@ -53,6 +53,7 @@ const IsometricSquare: React.FC<IsometricSquareProps> = ({
         clearInterval(workerInterval);
         setWorkerInterval(null);
       }
+      
     }
     setDisplayOption(null);
   };

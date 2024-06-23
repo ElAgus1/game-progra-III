@@ -19,11 +19,6 @@ export default function Home() {
               Game
             </button>
           </Link>
-          <Link href="/register" prefetch={true}>
-            <button className="bg-white text-xl w-28 text-black border-l-2 hover:bg-rose-400 transition duration-300 border-rose-600 rounded-r-md p-2 bg-opacity-80">
-              Register
-            </button>
-          </Link>
         </div>
       </div>
     </div>

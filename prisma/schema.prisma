@@ -92,3 +92,23 @@ model Message {
 
   message Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
+
+
+model Resources {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  gold     Int?
+  stone    Int?
+  wood     Int?
+  game     Game?  @relation
+
+  @@map(name: "resources")
+}
+
+model Game {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  resources_id String     @db.ObjectId @unique
+  field        Int[]
+  resources    Resources  @relation(fields: [resources_id], references: [id], onDelete: Cascade)
+
+  @@map(name: "game")
+}

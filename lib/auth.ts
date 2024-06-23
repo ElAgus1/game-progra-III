@@ -18,22 +18,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       allowDangerousEmailAccountLinking: true,
     }),
-    // Nodemailer({   ctrl k c para comentar y ctrl k u para descomentar :)
-    //   server: {
-    //     host: process.env.EMAIL_SERVER_HOST,
-    //     port: parseInt(process.env.EMAIL_SERVER_PORT!, 10),
-    //     auth: {
-    //       user: process.env.EMAIL_SERVER_USER,
-    //       pass: process.env.EMAIL_SERVER_PASSWORD,
-    //     },
-    //   },
-    //   from: process.env.EMAIL_FROM,
-    // }),
+    Nodemailer({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: parseInt(process.env.EMAIL_SERVER_PORT!, 10),
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+    }),
   ],
   adapter: PrismaAdapter(prisma),
+  
   callbacks: {
     async session({ token, session }) {
       if (token && session.user) {
+        session.user.id = token.id as string;
         session.user.name = token.name ?? undefined;
         session.user.email = token.email ?? '';
         session.user.image = token.picture ?? undefined;
